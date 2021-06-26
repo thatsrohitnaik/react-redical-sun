@@ -19,6 +19,10 @@ const useStyles = makeStyles({
 });
 
 class SearchClient extends React.Component {
+  //const classes = useStyles();
+  //const [value, setValue] = React.useState();
+  //const [inputValue, setInputValue] = React.useState('');
+
   constructor(props) {
     super(props);
     this.state = {
