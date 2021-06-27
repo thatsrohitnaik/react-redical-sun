@@ -33,6 +33,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -172,6 +173,7 @@ const Complaints = props => {
   const [rowData, setRowData] = useState(null);
   const [selectedRow, setSelectedRow] = useState([]);
   const [department, setDepartment] = useState('');
+
   const onGridReady = params => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
@@ -219,6 +221,22 @@ const Complaints = props => {
 
   const handleSelectChange = event => {
     setDepartment(event.target.value);
+  };
+
+  const [state, setState] = React.useState({
+    openSnack: false,
+    vertical: 'top',
+    horizontal: 'center'
+  });
+
+  const { vertical, horizontal, openSnack } = state;
+
+  const handleSnackbarClick = newState => () => {
+    setState({ openSnack: true, ...newState });
+  };
+
+  const handleSnackbarClose = () => {
+    setState({ ...state, openSnack: false });
   };
 
   return (
@@ -354,7 +372,14 @@ const Complaints = props => {
                   variant="outlined"
                   className={classes.formControlButton}
                 >
-                  <Button variant="contained" color="primary">
+                  <Button
+                    onClick={handleSnackbarClick({
+                      vertical: 'bottom',
+                      horizontal: 'center'
+                    })}
+                    variant="contained"
+                    color="primary"
+                  >
                     Submit
                   </Button>
                 </FormControl>
@@ -521,6 +546,15 @@ const Complaints = props => {
           </Button>
         </DialogActions>
       </Dialog>
+      <div>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={openSnack}
+          onClose={handleSnackbarClose}
+          message="Complaint Registered"
+          key={vertical + horizontal}
+        />
+      </div>
     </>
   );
 };
