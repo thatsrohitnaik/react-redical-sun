@@ -21,9 +21,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function DisplayList(props) {
   const classes = useStyles();
-  const { data, header } = props;
+  const { data, header, onClickList } = props;
 
   const keys = Object.keys(data);
+
+  const handleClick = (item, value) => {
+    onClickList(item, value);
+  };
 
   return (
     <List
@@ -38,7 +42,12 @@ export default function DisplayList(props) {
     >
       {keys.map(item => {
         return (
-          <ListItem button>
+          <ListItem
+            button
+            onClick={() => {
+              handleClick(item, data[item]);
+            }}
+          >
             <ListItemIcon>
               <Typography variant="subtitle1" gutterBottom>
                 <NewIcon icon={item} />

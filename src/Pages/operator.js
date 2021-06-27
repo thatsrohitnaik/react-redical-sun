@@ -4,6 +4,7 @@ import DisplayList from '../components2/DisplayList/';
 import Table from '../components2/Table/';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Complaint from './complaint';
 
 const complaintTableSchema = [
   {
@@ -86,7 +87,8 @@ export default class Operator extends React.Component {
   }
   setClient = value => {
     this.setState({
-      client: value
+      client: value,
+      showSwitch: 1
     });
   };
 
@@ -94,6 +96,15 @@ export default class Operator extends React.Component {
     this.setState({
       showSwitch: value
     });
+  };
+
+  onClickList = (item, value) => {
+    console.log(item, value);
+    if (item === 'subscription') {
+      this.setState({
+        showSwitch: 3
+      });
+    }
   };
 
   onSelection = value => {
@@ -111,9 +122,15 @@ export default class Operator extends React.Component {
           <Grid item lg={3}>
             <Autocomplete url={'/data.json'} setValue={this.setClient} />
             {client != null ? (
-              <DisplayList data={client} header={'Client Detail'} />
+              <DisplayList
+                onClickList={this.onClickList}
+                data={client}
+                header={'Client Detail'}
+              />
             ) : null}
-            {client && client.subscription === 'Active' ? (
+            {client &&
+            client.subscription === 'Active' &&
+            (showSwitch == 1 || showSwitch === 3) ? (
               <Button
                 variant="contained"
                 color="primary"
@@ -121,6 +138,16 @@ export default class Operator extends React.Component {
                 onClick={() => this.toggle(2)}
               >
                 New Complaint
+              </Button>
+            ) : null}
+            {client && (showSwitch === 2 || showSwitch === 3) ? (
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: '100%', marginTop: '10px' }}
+                onClick={() => this.toggle(1)}
+              >
+                All Complaint
               </Button>
             ) : null}
           </Grid>
@@ -131,6 +158,9 @@ export default class Operator extends React.Component {
                 rowData={rowData}
                 onSelection={this.onSelection}
               />
+            ) : null}
+            {client && client.subscription === 'Active' && showSwitch == 2 ? (
+              <Complaint client={client} />
             ) : null}
           </Grid>
         </Grid>

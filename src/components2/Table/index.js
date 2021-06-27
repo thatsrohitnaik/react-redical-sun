@@ -26,7 +26,10 @@ const Table = props => {
     setGridColumnApi(params.columnApi);
   };
   return (
-    <div className="ag-theme-alpine" style={{ height: 300, width: '100%' }}>
+    <div
+      className="ag-theme-alpine"
+      style={{ marginTop: 15, height: 300, width: '100%' }}
+    >
       <AgGridReact
         defaultColDef={{
           flex: 1,
