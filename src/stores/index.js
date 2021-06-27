@@ -11,54 +11,64 @@ class ClientStore {
   @observable userComplaints = [];
 
   @action setSelectedClientPhone = value => {
-    this.selectedClientPhone = value.phone;
-    this.selectedClientDetails = value;
-    this.getClientDetails();
-    this.setUserComplaints();
+    this.selectedClientPhone = value.phone || '';
+    this.selectedClientDetails = value || {};
+    this.getClientDetails(value.phone || '');
+    this.setUserComplaints(value || '');
   };
-  @action setUserComplaints = () => {
-    this.userComplaints = [
-      {
-        department: 'Plumbing',
-        status: 'unassigned',
-        description: ' Water is leaking in our bathroom',
-        tech: ['Gary', 'herry'],
-        complainDate: '10/01/2021',
-        assignedDate: '11/01/2021',
-        resolvedDate: '12/01/2021',
-        techNote: 'work was completed'
-      },
-      {
-        department: 'Electric',
-        status: 'assigned',
-        description: ' Water is leaking in our bathroom',
-        tech: ['Gary', 'herry'],
-        complainDate: '10/02/2021',
-        assignedDate: '11/02/2021',
-        resolvedDate: '12/02/2021',
-        techNote: 'work was completed'
-      },
-      {
-        department: 'Plumbing',
-        status: 'completed',
-        description: ' Water is leaking in our bathroom',
-        tech: ['Gary', 'herry'],
-        complainDate: '10/03/2021',
-        assignedDate: '11/03/2021',
-        resolvedDate: '12/03/2021',
-        techNote: 'work was completed'
-      }
-    ];
+  @action setUserComplaints = phone => {
+    if (phone) {
+      this.userComplaints = [
+        {
+          department: 'Plumbing',
+          status: 'unassigned',
+          description:
+            ' Water is leaking in our bathroom, since yesterday, there is water all over the house we need your services asap. we need plumber and electrician too',
+          tech: ['Gary', 'herry'],
+          complainDate: '10/01/2021',
+          assignedDate: '',
+          assignedNote: 'Assigned to Gerry',
+          resolvedDate: '',
+          resolvedNote: '',
+          techNote: ''
+        },
+        {
+          department: 'Electric',
+          status: 'assigned',
+          description: ' Water is leaking in our bathroom',
+          tech: ['Gary', 'herry'],
+          complainDate: '10/02/2021',
+          assignedDate: '11/02/2021',
+          assignedNote: 'Assigned to Gerry',
+          resolvedDate: '',
+          resolvedNote: '',
+          techNote: ''
+        },
+        {
+          department: 'Plumbing',
+          status: 'completed',
+          description: ' Water is leaking in our bathroom',
+          tech: ['Gary', 'herry'],
+          complainDate: '10/03/2021',
+          assignedDate: '11/03/2021',
+          assignedNote: 'Assigned to Gerry',
+          resolvedDate: '12/03/2021',
+          resolvedNote: 'Work was completed',
+          clientFeedback: 'Job was done very professionally'
+        }
+      ];
+    }
   };
 
-  @action getClientDetails = () => {
+  @action getClientDetails = phone => {
     // API
-
-    this.selectedClientDetails = {
-      ...this.selectedClientDetails,
-      address: ' Near Blue Star Hotel, Panjim Goa',
-      status: 'active'
-    };
+    if (phone) {
+      this.selectedClientDetails = {
+        ...this.selectedClientDetails,
+        address: ' Near Blue Star Hotel, Panjim Goa',
+        status: 'active'
+      };
+    }
 
     console.log(this.selectedClientDetails);
   };

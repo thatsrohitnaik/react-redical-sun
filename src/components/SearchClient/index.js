@@ -78,11 +78,11 @@ class SearchClient extends React.Component {
               //   option: classes.option
               // }}
               autoHighlight
-              getOptionLabel={option => option.phone}
+              getOptionLabel={option => option.phone || ''}
               renderOption={option => (
                 <React.Fragment>
                   {/* <span>{countryToFlag(option.code)}</span> */}
-                  {option.phone} + {': '} {option.label}
+                  {option.phone || ""} + {': '} {option.label}
                 </React.Fragment>
               )}
               renderInput={params => (
@@ -104,7 +104,7 @@ class SearchClient extends React.Component {
             </div>
           </Grid>
           <Grid item xs={9}>
-            {selectedClientPhone != null ? (
+            {this.state.value ? (
               <Complaints userComplaints={userComplaints} />
             ) : null}
           </Grid>
