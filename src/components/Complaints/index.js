@@ -23,8 +23,75 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import RegisterComplain from '../RegisterComplain/';
+import TextField from '@material-ui/core/TextField';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import Subscription from '../Subscription/';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`nav-tabpanel-${index}`}
+      aria-labelledby={`nav-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    'aria-controls': `nav-tabpanel-${index}`
+  };
+}
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={event => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -33,7 +100,13 @@ const useStyles = makeStyles(theme => ({
   },
   formControl: {
     marginTop: theme.spacing(2),
-    minWidth: 120
+    width: '100%'
+  },
+  formControlButton: {
+    marginTop: theme.spacing(2),
+    width: '100px',
+    marginLeft: 'auto',
+    display: 'block'
   },
   formControlLabel: {
     marginTop: theme.spacing(1)
@@ -98,7 +171,7 @@ const Complaints = props => {
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState(null);
   const [selectedRow, setSelectedRow] = useState([]);
-
+  const [department, setDepartment] = useState('');
   const onGridReady = params => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
@@ -138,33 +211,165 @@ const Complaints = props => {
   const handleFullWidthChange = event => {
     setFullWidth(event.target.checked);
   };
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleSelectChange = event => {
+    setDepartment(event.target.value);
+  };
 
   return (
     <>
-      <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
-        <AgGridReact
-          defaultColDef={{
-            flex: 1,
-            sortable: true,
-            filter: true
-          }}
-          rowSelection={'single'}
-          onGridReady={onGridReady}
-          onSelectionChanged={onSelectionChanged}
-          rowData={toJS(props.userComplaints)}
-        >
-          {tableSchema.map(t => {
-            return (
-              <AgGridColumn
-                field={t.field}
-                filter={t.filter}
-                sortable={t.sortable}
-                width={t.width || ''}
-              />
-            );
-          })}
-        </AgGridReact>
+      {/* <RegisterComplain /> */}
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            variant="fullWidth"
+            scrollButtons="auto"
+            aria-label="nav tabs example"
+            indicatorColor="primary"
+          >
+            <LinkTab label="All Complaints" href="/trash" {...a11yProps(0)} />
+            <LinkTab
+              disabled={props.client.status === 'active' ? false : true}
+              label="New Complaints"
+              href="/drafts"
+              {...a11yProps(1)}
+            />
+            <LinkTab label="Subscription" href="/s" {...a11yProps(2)} />
+            {/* <LinkTab label="Edit Info" href="/s" {...a11yProps(2)} /> */}
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <div className="ag-theme-alpine" style={{ height: 400, width: '' }}>
+            <AgGridReact
+              defaultColDef={{
+                flex: 1,
+                sortable: true,
+                filter: true
+              }}
+              rowSelection={'single'}
+              onGridReady={onGridReady}
+              onSelectionChanged={onSelectionChanged}
+              rowData={toJS(props.userComplaints)}
+            >
+              {tableSchema.map(t => {
+                return (
+                  <AgGridColumn
+                    field={t.field}
+                    filter={t.filter}
+                    sortable={t.sortable}
+                    width={t.width || ''}
+                  />
+                );
+              })}
+            </AgGridReact>
+          </div>
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <div>
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Client Name"
+                    required
+                    defaultValue={props.client.label}
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    variant="outlined"
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Phone"
+                    defaultValue={props.client.phone}
+                    variant="outlined"
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={6}>
+                <FormControl
+                  required
+                  variant="outlined"
+                  className={classes.formControl}
+                >
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Department
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={department}
+                    onChange={handleSelectChange}
+                    label="Department"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Plumbing</MenuItem>
+                    <MenuItem value={20}>Electric</MenuItem>
+                    <MenuItem value={30}>Cook</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Address"
+                    variant="outlined"
+                    defaultValue={props.client.address}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Description"
+                    variant="outlined"
+                    defaultValue=""
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControlButton}
+                >
+                  <Button variant="contained" color="primary">
+                    Submit
+                  </Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Subscription />
+        </TabPanel>
+        {/* <TabPanel value={value} index={3}>
+          Edit
+        </TabPanel> */}
       </div>
+
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}

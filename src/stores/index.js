@@ -7,21 +7,23 @@ class ClientStore {
   };
 
   @observable selectedClientDetails = {};
-  @observable selectedClientPhone = null;
+  @observable selectedClientPhone = '';
   @observable userComplaints = [];
 
   @action setSelectedClientPhone = value => {
-    this.selectedClientPhone = value.phone || '';
-    this.selectedClientDetails = value || {};
-    this.getClientDetails(value.phone || '');
-    this.setUserComplaints(value || '');
+    if (value) {
+      this.selectedClientPhone = value.phone || '';
+      this.selectedClientDetails = value || {};
+      this.getClientDetails(value.phone || '');
+      this.setUserComplaints(value || '');
+    }
   };
   @action setUserComplaints = phone => {
     if (phone) {
       this.userComplaints = [
         {
           department: 'Plumbing',
-          status: 'unassigned',
+          status: 'Unassigned',
           description:
             ' Water is leaking in our bathroom, since yesterday, there is water all over the house we need your services asap. we need plumber and electrician too',
           tech: ['Gary', 'herry'],
@@ -34,7 +36,7 @@ class ClientStore {
         },
         {
           department: 'Electric',
-          status: 'assigned',
+          status: 'Assigned',
           description: ' Water is leaking in our bathroom',
           tech: ['Gary', 'herry'],
           complainDate: '10/02/2021',
@@ -46,7 +48,7 @@ class ClientStore {
         },
         {
           department: 'Plumbing',
-          status: 'completed',
+          status: 'Resovled',
           description: ' Water is leaking in our bathroom',
           tech: ['Gary', 'herry'],
           complainDate: '10/03/2021',

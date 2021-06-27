@@ -7,6 +7,7 @@ import ClientDetails from '../ClientDetails/';
 import { inject, observer } from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
 import Complaints from '../Complaints/';
+import { toJS} from 'mobx';
 
 const useStyles = makeStyles({
   option: {
@@ -60,7 +61,7 @@ class SearchClient extends React.Component {
     return (
       <>
         <Grid container spacing={}>
-          <Grid item xs={3}>
+          <Grid item lg={3}>
             <Autocomplete
               id="country-select-demo"
               value={this.state.value}
@@ -74,11 +75,8 @@ class SearchClient extends React.Component {
               }}
               style={{ width: 300 }}
               options={this.getClients()}
-              // classes={{
-              //   option: classes.option
-              // }}
               autoHighlight
-              getOptionLabel={option => option.phone || ''}
+              getOptionLabel={option => option ? option.phone : ''}
               renderOption={option => (
                 <React.Fragment>
                   {/* <span>{countryToFlag(option.code)}</span> */}
@@ -88,24 +86,24 @@ class SearchClient extends React.Component {
               renderInput={params => (
                 <TextField
                   {...params}
-                  label="Client Phone"
+                  label="Search By Client Phone"
                   variant="outlined"
                   inputProps={{
                     ...params.inputProps,
-                    autoComplete: 'new-password' // disable autocomplete and autofill
+                    // autoComplete: 'new-password' // disable autocomplete and autofill
                   }}
                 />
               )}
             />
             <div>
               {this.state.value ? (
-                <ClientDetails value={this.state.inputValue} />
+                <ClientDetails value={this.state.inputValue}/>
               ) : null}
             </div>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item lg={9}>
             {this.state.value ? (
-              <Complaints userComplaints={userComplaints} />
+              <Complaints userComplaints={userComplaints} client={toJS(this.props.clientStore.selectedClientDetails)}/>
             ) : null}
           </Grid>
         </Grid>

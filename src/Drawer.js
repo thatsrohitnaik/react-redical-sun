@@ -111,7 +111,7 @@ export default function Drawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            AMC Portal
           </Typography>
         </Toolbar>
       </AppBar>
