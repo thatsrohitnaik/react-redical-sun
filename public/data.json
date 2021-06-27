@@ -1,8 +1,38 @@
 [
-  { "name": "Joey", "phone": "9673417124" },
-  { "name": "Chandler", "phone": "8673417124" },
-  { "name": "Monica", "phone":   "9235379269" },
-  { "name": "Rachel", "phone":   "8345333445" },
-  { "name": "Pheobe", "phone":   "7643526189" },
-  { "name": "Ross", "phone":     "8355223445" }
+  {
+    "name": "Joey",
+    "phone": "9673417124",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Active"
+  },
+  {
+    "name": "Chandler",
+    "phone": "8673417124",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Inactive"
+  },
+  {
+    "name": "Monica",
+    "phone": "9235379269",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Active"
+  },
+  {
+    "name": "Rachel",
+    "phone": "8345333445",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Active"
+  },
+  {
+    "name": "Pheobe",
+    "phone": "7643526189",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Active"
+  },
+  {
+    "name": "Ross",
+    "phone": "8355223445",
+    "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
+    "subscription":"Inactive"
+  }
 ]
