@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 export default function DisplayList(props) {
   const classes = useStyles();
   const { data, header, onClickList } = props;
