@@ -59,7 +59,7 @@ class SearchClient extends React.Component {
 
     return (
       <>
-        <Grid container spacing={3}>
+        <Grid container spacing={}>
           <Grid item xs={3}>
             <Autocomplete
               id="country-select-demo"
