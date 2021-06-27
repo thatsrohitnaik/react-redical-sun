@@ -5,8 +5,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
+import NewIcon from '../Icon/';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +41,7 @@ export default function DisplayList(props) {
           <ListItem button>
             <ListItemIcon>
               <Typography variant="subtitle1" gutterBottom>
-                {item}
+                <NewIcon icon={item} />
               </Typography>
             </ListItemIcon>
             <ListItemText primary={data[item]} />

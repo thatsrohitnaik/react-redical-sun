@@ -3,6 +3,7 @@ import Autocomplete from '../components2/Autocomplete/';
 import DisplayList from '../components2/DisplayList/';
 import Table from '../components2/Table/';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 const complaintTableSchema = [
   {
@@ -79,12 +80,19 @@ export default class Operator extends React.Component {
     super(props);
     this.state = {
       client: null,
-      complaint: {}
+      complaint: {},
+      showSwitch: 1
     };
   }
   setClient = value => {
     this.setState({
       client: value
+    });
+  };
+
+  toggle = value => {
+    this.setState({
+      showSwitch: value
     });
   };
 
@@ -96,7 +104,7 @@ export default class Operator extends React.Component {
   };
 
   render() {
-    const { client } = this.state;
+    const { client, showSwitch } = this.state;
     return (
       <>
         <Grid container spacing={1}>
@@ -105,9 +113,19 @@ export default class Operator extends React.Component {
             {client != null ? (
               <DisplayList data={client} header={'Client Detail'} />
             ) : null}
+            {client && client.subscription === 'Active' ? (
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: '100%', marginTop: '10px' }}
+                onClick={() => this.toggle(2)}
+              >
+                New Complaint
+              </Button>
+            ) : null}
           </Grid>
           <Grid item lg={9}>
-            {this.state.client ? (
+            {client && showSwitch == 1 ? (
               <Table
                 tableSchema={complaintTableSchema}
                 rowData={rowData}
