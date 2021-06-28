@@ -4,7 +4,8 @@ import DisplayList from '../components2/DisplayList/';
 import Table from '../components2/Table/';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Complaint from './complaint';
+import NewComplaints from '../components2/NewComplaints/';
+import ComplaintDialog from '../components2/ComplaintDialog/';
 
 const complaintTableSchema = [
   {
@@ -81,8 +82,10 @@ export default class Operator extends React.Component {
     super(props);
     this.state = {
       client: null,
-      complaint: {},
-      showSwitch: 1
+      selectedComplaint: {},
+      showSwitch: 1,
+      showDialog: false,
+      allComplaints: []
     };
   }
   setClient = value => {
@@ -90,12 +93,30 @@ export default class Operator extends React.Component {
       client: value,
       showSwitch: 1
     });
+    console.log('setting client');
+    if (value) {
+      this.fetchAllComplaints(value.phone);
+    }
   };
+
+  fetchAllComplaints(phone) {
+    console.log(phone);
+    return rowData;
+  }
+
+  addNewComplaint(complaint) {
+    console.log(complaint, 'new');
+  }
 
   toggle = value => {
     this.setState({
       showSwitch: value
     });
+  };
+
+  toggleDialog = value => {
+    this.setState({ showDialog: value });
+    console.log(this.state.showDialog);
   };
 
   onClickList = (item, value) => {
@@ -109,9 +130,10 @@ export default class Operator extends React.Component {
 
   onSelection = value => {
     this.setState({
-      complaint: value
+      selectedComplaint: value[0]
     });
-    console.log(this.state.complaint);
+    this.toggleDialog(true);
+    console.log(value, 'value');
   };
 
   render() {
@@ -160,8 +182,18 @@ export default class Operator extends React.Component {
               />
             ) : null}
             {client && client.subscription === 'Active' && showSwitch == 2 ? (
-              <Complaint client={client} />
+              <NewComplaints
+                client={client}
+                addNewComplaint={this.addNewComplaint}
+              />
             ) : null}
+            {
+              <ComplaintDialog
+                selectedComplaint={this.state.selectedComplaint}
+                toggleDialog={this.toggleDialog}
+                showDialog={this.state.showDialog}
+              />
+            }
           </Grid>
         </Grid>
       </>
