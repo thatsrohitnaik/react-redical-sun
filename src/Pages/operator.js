@@ -6,36 +6,41 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import NewComplaints from '../components2/NewComplaints/';
 import ComplaintDialog from '../components2/ComplaintDialog/';
+import Snackbar from '@material-ui/core/Snackbar';
 
-const complaintTableSchema = [
-  {
-    field: 'department',
-    filter: 'text',
-    sortable: true,
-    width: '100px'
-  },
-  {
-    field: 'status',
-    filter: 'text',
-    sortable: true,
-    width: '100px'
-  },
-  {
-    field: 'complainDate',
-    sortable: true,
-    width: '100px'
-  },
-  {
-    field: 'assignedDate',
-    sortable: true,
-    width: '100px'
-  },
-  {
-    field: 'resolvedDate',
-    sortable: true,
-    width: '100px'
-  }
-];
+const complaintTableSchema = {
+  setting: [{ defaultSort: '' }],
+  schema: [
+    {
+      field: 'department',
+      filter: 'text',
+      sortable: true,
+      width: '100px'
+    },
+    {
+      field: 'status',
+      filter: 'text',
+      sortable: true,
+      width: '100px',
+      sort: 'desc'
+    },
+    {
+      field: 'complainDate',
+      sortable: true,
+      width: '100px'
+    },
+    {
+      field: 'assignedDate',
+      sortable: true,
+      width: '100px'
+    },
+    {
+      field: 'resolvedDate',
+      sortable: true,
+      width: '100px'
+    }
+  ]
+};
 
 const rowData = [
   {
@@ -85,7 +90,9 @@ export default class Operator extends React.Component {
       selectedComplaint: {},
       showSwitch: 1,
       showDialog: false,
-      allComplaints: []
+      allComplaints: [],
+      openSnack: false,
+      snackMessage: ''
     };
   }
   setClient = value => {
@@ -99,14 +106,20 @@ export default class Operator extends React.Component {
     }
   };
 
-  fetchAllComplaints(phone) {
+  fetchAllComplaints = phone => {
     console.log(phone);
     return rowData;
-  }
+  };
 
-  addNewComplaint(complaint) {
+  addNewComplaint = complaint => {
+    rowData.push(complaint);
     console.log(complaint, 'new');
-  }
+    this.setState({
+      showSwitch: 1,
+      openSnack: true,
+      snackMessage: 'Complaint Registered'
+    });
+  };
 
   toggle = value => {
     this.setState({
@@ -134,6 +147,10 @@ export default class Operator extends React.Component {
     });
     this.toggleDialog(true);
     console.log(value, 'value');
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({ openSnack: false });
   };
 
   render() {
@@ -196,6 +213,14 @@ export default class Operator extends React.Component {
             }
           </Grid>
         </Grid>
+
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          open={this.state.openSnack}
+          onClose={this.handleSnackbarClose}
+          message={this.state.snackMessage}
+          // key={vertical + horizontal}
+        />
       </>
     );
   }

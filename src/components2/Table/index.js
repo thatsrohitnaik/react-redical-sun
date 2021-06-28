@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 
 const Table = props => {
   const { tableSchema, rowData, onSelection } = props;
+  const { schema, setting } = tableSchema;
   console.log(props);
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
@@ -41,13 +42,14 @@ const Table = props => {
         onSelectionChanged={onSelectionChanged}
         rowData={rowData}
       >
-        {tableSchema.map(t => {
+        {schema.map(t => {
           return (
             <AgGridColumn
               field={t.field}
               filter={t.filter}
               sortable={t.sortable}
               width={t.width || ''}
+              sort={t.sort || ''}
             />
           );
         })}
