@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import NewComplaints from '../components2/NewComplaints/';
 import ComplaintDialog from '../components2/ComplaintDialog/';
+import Subscription from '../components2/Subscription/';
 import Snackbar from '@material-ui/core/Snackbar';
 
 const complaintTableSchema = {
@@ -87,6 +88,7 @@ export default class Operator extends React.Component {
     super(props);
     this.state = {
       client: null,
+      filteredClient: null,
       selectedComplaint: {},
       showSwitch: 1,
       showDialog: false,
@@ -155,6 +157,18 @@ export default class Operator extends React.Component {
 
   render() {
     const { client, showSwitch } = this.state;
+
+    const arr = {};
+    if (client) {
+      Object.keys(client).map(item => {
+        console.log(item, client[item]);
+        if (item !== 'dueDate') {
+          arr[item] = client[item];
+          console.log('sssss');
+        }
+      });
+    }
+
     return (
       <>
         <Grid container spacing={1}>
@@ -163,7 +177,7 @@ export default class Operator extends React.Component {
             {client != null ? (
               <DisplayList
                 onClickList={this.onClickList}
-                data={client}
+                data={arr}
                 header={'Client Detail'}
               />
             ) : null}
@@ -211,6 +225,12 @@ export default class Operator extends React.Component {
                 showDialog={this.state.showDialog}
               />
             }
+            {client && showSwitch == 3 ? (
+              <Subscription
+                status={client.subscription}
+                dueOn={client.dueDate}
+              />
+            ) : null}
           </Grid>
         </Grid>
 

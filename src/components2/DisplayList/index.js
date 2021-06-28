@@ -39,17 +39,27 @@ export default function DisplayList(props) {
       }
       className={classes.root}
     >
-      {keys.map(item => {
+      {keys.map((item, index) => {
         return (
           <ListItem
             button
+            key={index}
             onClick={() => {
               handleClick(item, data[item]);
             }}
           >
             <ListItemIcon>
               <Typography variant="subtitle1" gutterBottom>
-                <NewIcon icon={item} />
+                <NewIcon
+                  icon={item}
+                  className={
+                    item === 'subscription'
+                      ? data[item] === 'Active'
+                        ? 'success-icon'
+                        : 'danger-icon'
+                      : ''
+                  }
+                />
               </Typography>
             </ListItemIcon>
             <ListItemText primary={data[item]} />

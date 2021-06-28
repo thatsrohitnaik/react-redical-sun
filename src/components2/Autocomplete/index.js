@@ -52,7 +52,7 @@ export default function Autocomplete(props) {
   return (
     <Autocomplete
       id="asynchronous-demo"
-      style={{ width: '100%', minWidth: 300, marginTop: 15 }}
+      style={{ width: '100%', minWidth: 300, marginTop: 20 }}
       open={open}
       onOpen={() => {
         setOpen(true);

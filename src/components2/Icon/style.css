@@ -1,0 +1,10 @@
+.success-icon {
+  color: green;
+}
+.danger-icon {
+  color: red;
+}
+
+.icon {
+  vertical-align: middle;
+}

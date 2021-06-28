@@ -42,9 +42,10 @@ const Table = props => {
         onSelectionChanged={onSelectionChanged}
         rowData={rowData}
       >
-        {schema.map(t => {
+        {schema.map((t, index) => {
           return (
             <AgGridColumn
+              key={index}
               field={t.field}
               filter={t.filter}
               sortable={t.sortable}

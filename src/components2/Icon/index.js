@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
+import './style.css';
 
 const NewIcon = prop => {
   let icon;
+  const { className } = prop;
   switch (prop.icon) {
     case 'name':
       icon = 'account_circle';
@@ -17,7 +19,7 @@ const NewIcon = prop => {
       icon = 'home';
       break;
   }
-  return <Icon>{icon} </Icon>;
+  return <Icon className={className + ' icon'}>{icon} </Icon>;
 };
 
 export default NewIcon;

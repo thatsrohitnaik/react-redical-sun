@@ -3,36 +3,43 @@
     "name": "Joey",
     "phone": "9673417124",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Active"
+    "subscription":"Active",
+    "dueDate":"10/12/2021"
   },
   {
     "name": "Chandler",
     "phone": "8673417124",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Inactive"
+    "subscription":"Inactive",
+    "dueDate":"10/12/2020"
+
   },
   {
     "name": "Monica",
     "phone": "9235379269",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Active"
+    "subscription":"Active",
+    "dueDate":"10/07/2021"
   },
   {
     "name": "Rachel",
     "phone": "8345333445",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Active"
+    "subscription":"Active",
+    "dueDate":"10/08/2021"
   },
   {
     "name": "Pheobe",
     "phone": "7643526189",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Active"
+    "subscription":"Active",
+    "dueDate":"10/12/2021"
   },
   {
     "name": "Ross",
     "phone": "8355223445",
     "address": "Behind Blue Star Hote, 403001 Mala, Panjim Goa",
-    "subscription":"Inactive"
+    "subscription":"Inactive",
+    "dueDate":"10/12/2019"
   }
 ]

@@ -107,9 +107,19 @@ const NewComplaints = props => {
       complainDate,
       status: 'Unassigned'
     };
+    const send = key => {
+      if (key === 'description') {
+        if (formData[key].length > 20) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      return false;
+    };
 
     const invalidField = Object.keys(formData).filter(key =>
-      formData[key] ? false : true
+      formData[key] ? send(key) : true
     );
 
     invalidField.length === 0
@@ -230,7 +240,11 @@ const NewComplaints = props => {
           <Grid item xs={12}>
             {'Invalid Field: '}
             {invalidField.map(item => {
-              return <a>{item + ' '}</a>;
+              if (item === 'description') {
+                return <a>{item + '(min 20 char) '}</a>;
+              } else {
+                return <a>{item + ' '}</a>;
+              }
             })}
           </Grid>
         ) : null}
