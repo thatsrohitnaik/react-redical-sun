@@ -196,10 +196,11 @@ const NewComplaints = props => {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <FormControl variant="outlined" className={classes.formControl}>
             <TextField
               required
+              multiline
               rowsMax={4}
               value={description}
               id="description"
