@@ -18,6 +18,18 @@ const NewIcon = prop => {
     case 'address':
       icon = 'home';
       break;
+    case 'recived':
+      icon = 'mark_email_unread';
+      break;
+    case 'assigned':
+      icon = 'hourglass_bottom';
+      break;
+    case 'resolved':
+      icon = 'check_circle';
+      break;
+    case 'feedback':
+      icon = 'rate_review';
+      break;
   }
   return <Icon className={className + ' icon'}>{icon} </Icon>;
 };

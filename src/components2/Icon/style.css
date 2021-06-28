@@ -4,7 +4,12 @@
 .danger-icon {
   color: red;
 }
-
+.primary-icon {
+  color: blue;
+}
+.default-icon {
+  color: white;
+}
 .icon {
   vertical-align: middle;
 }

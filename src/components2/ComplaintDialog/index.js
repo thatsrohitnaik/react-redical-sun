@@ -18,6 +18,7 @@ import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Typography from '@material-ui/core/Typography';
+import NewIcon from '../Icon/';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,7 +70,7 @@ const ComplaintDialog = props => {
               </TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot>
-                  <FastfoodIcon />
+                  <NewIcon icon="recived" className="default-icon" />
                 </TimelineDot>
                 <TimelineConnector />
               </TimelineSeparator>
@@ -91,7 +92,7 @@ const ComplaintDialog = props => {
                 </TimelineOppositeContent>
                 <TimelineSeparator>
                   <TimelineDot color="primary">
-                    <LaptopMacIcon />
+                    <NewIcon icon="assigned" className="default-icon" />
                   </TimelineDot>
                   <TimelineConnector />
                 </TimelineSeparator>
@@ -123,7 +124,7 @@ const ComplaintDialog = props => {
                 </TimelineOppositeContent>
                 <TimelineSeparator>
                   <TimelineDot>
-                    <FastfoodIcon />
+                    <NewIcon icon="resolved" className="default-icon" />
                   </TimelineDot>
                   <TimelineConnector />
                 </TimelineSeparator>
@@ -146,7 +147,7 @@ const ComplaintDialog = props => {
                 </TimelineOppositeContent>
                 <TimelineSeparator>
                   <TimelineDot color="primary">
-                    <LaptopMacIcon />
+                    <NewIcon icon="feedback" className="default-icon" />
                   </TimelineDot>
                   <TimelineConnector />
                 </TimelineSeparator>
